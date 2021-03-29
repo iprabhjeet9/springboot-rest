@@ -1,24 +1,24 @@
 package org.prabh.rest.restdemo.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GreetingController {
-    @Value("${greeting-name: No one}")
-    String name;
+    private Greeting greeting;
 
-    @Value("${greeting: ${greeting-name} is present.}")
-    String msg;
-
-    @GetMapping("/greets")
-    String getName(){
-        return name;
+    public GreetingController(Greeting greeting) {
+        this.greeting = greeting;
     }
 
-    @GetMapping("/msg")
-    String getMsg(){
-        return msg;
+    @GetMapping("/greeting/name")
+    String getGreeting() {
+        return greeting.getName();
+    }
+
+    @GetMapping("/coffee")
+    String getNameAndCoffee() {
+        return greeting.getCoffee();
     }
 }
